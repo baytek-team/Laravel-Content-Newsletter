@@ -1,5 +1,5 @@
 <?php
-namespace Baytek\Laravel\Content\Types\Newsletterletter\Seeders;
+namespace Baytek\Laravel\Content\Types\Newsletter\Seeders;
 
 use Baytek\Laravel\Content\Seeder;
 
