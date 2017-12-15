@@ -53,7 +53,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         $routes = 'routes/admin/newsletter.php';
         if(file_exists(base_path($routes))){
-            Route::prefix('admin/newsletter')
+            Route::prefix('admin')
                  ->middleware(['admin'])
                  ->namespace(Controllers::class)
                  ->group(base_path($routes));
