@@ -1,12 +1,12 @@
 @extends('newsletter::newsletter.template')
 
 @section('page.head.menu')
-    <div class="ui secondary menu">
-        @if(Auth::user()->can('Create Newsletter'))
-            <a class="item" href="{{ route('newsletter.create') }}">
+    <div class="ui secondary contextual menu">
+        @can('Create Newsletter')
+            <a class="ui primary button" href="{{ route('newsletter.create') }}">
                 <i class="add icon"></i>{{ ___('Add Newsletter') }}
             </a>
-        @endif
+        @endcan
     </div>
 @endsection
 
