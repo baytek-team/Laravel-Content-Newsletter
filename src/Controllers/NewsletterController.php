@@ -173,8 +173,8 @@ class NewsletterController extends ContentController
      */
     public function edit(Newsletter $newsletter)
     {
-        $pdf = File::childenOfTypeWhereMetadata($newsletter->id, 'file', 'mime', 'application/pdf')->withStatus('r', File::APPROVED)->first();
-        $images = File::childenOfTypeWhereMetadata($newsletter->id, 'file', 'mime', 'image/%', 'like')->withStatus('r', File::APPROVED)->get()->sortBy(function($image, $key){
+        $pdf = $newsletter->pdf->first();
+        $images = $newsletter->images->sortBy(function($image, $key){
             return $image->getMeta('order');
         });
 
