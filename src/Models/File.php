@@ -9,12 +9,17 @@ class File extends Content
     const EXCLUDED = 2 ** 9;  // Exclude from search
 
     /**
-     * Model specific status for files
-     * @var [type]
+     * Return the status messages
+     *
+     * @return Mixed status message
      */
-    public static $statuses = [
-        self::EXCLUDED => 'Excluded From Search',
-    ];
+    public static function statusMessages()
+    {
+        // return Statuses\TermMessages::class;
+        return [
+            self::EXCLUDED => 'Excluded From Search',
+        ];
+    }
 
 	/**
 	 * Content keys that will be saved to the relation tables
