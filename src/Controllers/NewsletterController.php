@@ -34,25 +34,13 @@ class NewsletterController extends ContentController
      * @var [type]
      */
     protected $views = [
-        'index' => 'index',
-        'create' => 'create',
-        'edit' => 'edit',
-        'show' => 'show',
+        'index' => 'newsletter.index',
+        'create' => 'newsletter.create',
+        'edit' => 'newsletter.edit',
+        'show' => 'newsletter.show',
     ];
 
     protected $redirectsKey = 'newsletter';
-
-    /**
-     * [__construct description]
-     *
-     * @return  null
-     */
-    public function __construct()
-    {
-        $this->loadViewsFrom(resource_path().'/views', 'newsletter');
-
-        parent::__construct();
-    }
 
     /**
      * Show the index of all content with content type 'newsletter'
