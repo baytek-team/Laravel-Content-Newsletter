@@ -23,35 +23,14 @@ class FileController extends ContentController
      */
     protected $model = File::class;
 
-    // protected $viewPrefix = 'admin/newsletter';
-
-    /**
-     * List of views this content type uses
-     * @var [type]
-     */
-    // protected $views = [
-    //     'edit' => 'edit',
-    // ];
-
     protected $redirectsKey = 'newsletter';
-
-    /**
-     * [__construct description]
-     *
-     * @return  null
-     */
-    public function __construct()
-    {
-        // $this->loadViewsFrom(resource_path().'/views', 'newsletter');
-
-        parent::__construct();
-    }
 
     /**
      * Download the file from the backend
      */
-    public function download(File $file)
+    public function download($id)
     {
+        $file = $this->bound($id);
         $file->load('meta');
 
         return Response::download(storage_path('app/' . $file->metadata('file')), $file->metadata('original'));
@@ -60,8 +39,9 @@ class FileController extends ContentController
     /**
      * Show the file, if it's an image
      */
-    public function show(File $file)
+    public function show($id)
     {
+        $file = $this->bound($id);
         $file->load('meta');
 
         return response()->file(storage_path('app/' . $file->metadata('file')));
@@ -108,8 +88,10 @@ class FileController extends ContentController
     /**
      * Remove a file from storage and set its status to deleted
      */
-    public function delete(Request $request, File $file)
+    public function delete(Request $request, $id)
     {
+        $file = $this->bound($id);
+
         $file->offBit(File::APPROVED)->onBit(File::DELETED)->update();
         \Storage::delete($file->getMeta('file'));
         $file->delete();
