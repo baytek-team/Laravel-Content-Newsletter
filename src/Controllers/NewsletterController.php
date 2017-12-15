@@ -5,7 +5,7 @@ namespace Baytek\Laravel\Content\Types\Newsletter\Controllers;
 use Baytek\Laravel\Content\Types\Newsletter\Models\Newsletter;
 use Baytek\Laravel\Content\Types\Newsletter\Models\File;
 use Baytek\Laravel\Content\Types\Newsletter\Requests\NewsletterRequest;
-use Baytek\Laravel\Content\Types\Newsletter\Scopes\ApprovedNewsScope;
+use Baytek\Laravel\Content\Types\Newsletter\Scopes\ApprovedNewsletterScope;
 
 use Baytek\Laravel\Content\Models\Content;
 use Baytek\Laravel\Content\Controllers\ContentController;
