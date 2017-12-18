@@ -25,7 +25,7 @@ class NewsletterSeeder extends Seeder
         ],
         [
             'key' => 'newsletter-index',
-            'title' => 'Newsletter',
+            'title' => 'Newsletters',
             'content' => 'newsletter.index',
             'meta' => [
                 'type' => 'route',
