@@ -3,6 +3,7 @@
 namespace Baytek\Laravel\Content\Types\Newsletter\Controllers\Api;
 
 use Baytek\Laravel\Content\Types\Newsletter\Models\Newsletter;
+use Baytek\Laravel\Content\Types\Newsletter\Models\File;
 use Baytek\Laravel\Content\Types\Newsletter\Scopes\NewsletterScope;
 use Baytek\Laravel\Content\Types\Newsletter\Scopes\ApprovedNewsletterScope;
 
@@ -51,9 +52,9 @@ class NewsletterController extends ApiController
             ->whereMetadata('newsletter_date', $year.'%', 'like')
             ->get()
             ->each(function(&$self){
-                $self->pdf = File::childenOfTypeWhereMetadata($self->id, 'file', 'mime', 'application/pdf')->withStatus('r', File::APPROVED)->first();
+                $self->pdf = $self->pdf->first();
 
-                $self->images = File::childenOfTypeWhereMetadata($self->id, 'file', 'mime', 'image/%', 'like')->withStatus('r', File::APPROVED)->get()->sortBy(function($image, $key){
+                $self->images = $self->images->sortBy(function($image, $key){
                         return $image->getMeta('order');
                     })->values();
             });
