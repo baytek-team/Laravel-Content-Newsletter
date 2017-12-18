@@ -171,8 +171,10 @@ class NewsletterController extends ContentController
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Newsletter $newsletter)
+    public function edit($id)
     {
+        $newsletter = $this->bound($id);
+
         $pdf = $newsletter->pdf->first();
         $images = $newsletter->images->sortBy(function($image, $key){
             return $image->getMeta('order');

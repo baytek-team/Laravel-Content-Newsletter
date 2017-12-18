@@ -31,11 +31,11 @@
     @if($pdf)
         <div class="resource-details ui segment">
             <div class="ui very relaxed horizontal list">
-                <a class="item" href="{{ route('newsletter.file.download', $pdf) }}">
+                <a class="item" href="{{ route('newsletter.file.download', $pdf->id) }}">
                     <i class="pdf file outline icon"></i>
                     {{ $pdf->title }}
                 </a>
-                <a class="item pdf-delete" href="{{ route('newsletter.file.delete', $pdf) }}">
+                <a class="item pdf-delete" href="{{ route('newsletter.file.delete', $pdf->id) }}">
                     <i class="delete icon"></i>
                     {{ ___('Delete') }}
                 </a>
