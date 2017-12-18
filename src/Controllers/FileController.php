@@ -76,6 +76,9 @@ class FileController extends ContentController
         $file->saveMetadata('size', FS::size($uploaded));
         $file->saveMetadata('mime', FS::mimeType($uploaded));
 
+        //Add excluded from search status
+        $file->onBit(self::EXCLUDED)->update();
+
         if(!is_null($id)) {
             $file->saveRelation('parent-id', $id);
         }
