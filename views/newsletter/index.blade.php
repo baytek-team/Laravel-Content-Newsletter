@@ -12,7 +12,7 @@
 
 @section('content')
 
-<table class="ui selectable table">
+<table class="ui very basic table">
     <thead>
         <tr>
             <th class="nine wide">{{ ___('Title') }}</th>
@@ -35,9 +35,8 @@
                     <div class="ui compact text menu">
                         <a class="item" href="{{ route('newsletter.edit', $newsletter->id) }}">
                             <i class="pencil icon"></i>
-                            {{ ___('Edit') }}
                         </a>
-                        @button(___('Delete'), [
+                        @button('', [
                             'method' => 'delete',
                             'location' => 'newsletter.destroy',
                             'type' => 'route',
