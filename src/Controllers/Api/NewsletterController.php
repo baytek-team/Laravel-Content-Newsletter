@@ -53,10 +53,6 @@ class NewsletterController extends ApiController
             ->get()
             ->each(function(&$self){
                 $self->pdf = $self->pdf->first();
-
-                $self->images = $self->images->sortBy(function($image, $key){
-                        return $image->getMeta('order');
-                    })->values();
             });
     }
 }

@@ -21,7 +21,7 @@ class FileController extends ContentController
     public function show($newsletter, $file)
     {
         $path = "newsletter/{$newsletter}/{$file}";
-		$file = (new File)->getWithPath($path)->first()->load('meta');
+		$file = File::withPath($path)->first()->load('meta');
 
         return response()->file(storage_path('app/' . $file->metadata('file')));
     }
@@ -32,7 +32,7 @@ class FileController extends ContentController
     public function download($newsletter, $file)
     {
         $path = "newsletter/{$newsletter}/{$file}";
-        $file = (new File)->getWithPath($path)->first()->load('meta');
+        $file = File::withPath($path)->first()->load('meta');
 
         return Response::download(storage_path('app/' . $file->metadata('file')), $file->metadata('original'));
     }

@@ -40,11 +40,6 @@ class Newsletter extends Content
         return $this->belongsToMany(File::class, 'content_relations', 'relation_id', 'content_id')->whereMetadata('mime', 'application/pdf');
     }
 
-    public function images()
-    {
-        return $this->belongsToMany(File::class, 'content_relations', 'relation_id', 'content_id')->whereMetadata('mime', 'image/%', 'like');
-    }
-
     public function getRouteKeyName()
     {
         return 'id';

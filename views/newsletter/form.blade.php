@@ -45,40 +45,6 @@
     @endif
 </div>
 
-<div class="ui horizontal divider header">
-    <i class="file image outline icon"></i>
-    {{ ___('Images') }}
-</div>
-
-<p>
-    <a class="item dz-img-clickable">
-        <i class="file text icon"></i>
-        {{ ___('Add Images') }}
-    </a>
-</p>
-
-<div clas="ui hidden divider"></div>
-
-<div class="ui segment dropzone-img">
-    <div class="ui five cards dropzone-img-preview">
-        @forelse($images as $image)
-            <div class="ui card">
-                <div class="image">
-                    <img src="{{route('newsletter.file.show', $image->id)}}">
-                </div>
-                <div class="ui button">
-                    <a class="item img-delete" href="{{ route('newsletter.file.delete', $image->id) }}">
-                        <i class="delete icon"></i>
-                        {{ ___('Delete') }}
-                    </a>
-                </div>
-                <input type="hidden" name="img_ids[]" value="{{$image->id}}">
-            </div>
-        @empty
-        @endforelse
-    </div>
-</div>
-
 <div class="ui hidden divider"></div>
 
 <div class="dropzone-pdf-template" style="display: none">
@@ -107,26 +73,6 @@
                 <div class="progress"></div>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="dropzone-img-template" style="display: none">
-    <div class="ui card">
-        <div class="image">
-            <img data-dz-thumbnail />
-        </div>
-        <div class="content dz-error-message" data-dz-errormessage style="display: none"></div>
-        <div class="ui button">
-            <a class="item img-delete" data-href="{{ route('newsletter.file.delete', 1) }}">
-                <i class="delete icon"></i>
-                {{ ___('Delete') }}
-            </a>
-            <a class="item delete-button" data-dz-remove style="display:none">
-                <i class="delete icon"></i>
-                {{ ___('Remove') }}
-            </a>
-        </div>
-        <input type="hidden" name="img_ids[]" class="dz-img-id" value="1">
     </div>
 </div>
 
@@ -161,54 +107,6 @@
         autoApply: true,
         showCustomRangeLabel: false,
         opens: "center",
-    });
-
-    /**
-     * Initialize the newsletter image sorting
-     */
-    window.jQuery('.dropzone-img-preview').sortable({
-        items: 'div.ui.card',
-        cursor: 'move',
-        containment: 'parent',
-        scroll: false,
-        scrollSensitivity: 40,
-        forcePlaceholderSize: true,
-        forceHelperSize: false,
-        helper: 'clone',
-        opacity: 0.65,
-        placeholder: 'ui card',
-        start: function( event, ui ) {
-            ui.item.css( 'background-color', '#f6f6f6' );
-        },
-        stop: function( event, ui ) {
-            ui.item.removeAttr( 'style' );
-        },
-        sort: function(event, ui) {  
-            ui.helper.css({'top' : ui.position.top + $(window).scrollTop() + 'px'});
-        }
-    });
-
-    /**
-     * AJAX newsletter image deletion
-     */
-    window.jQuery('.dropzone-img-preview').on('click', 'a.img-delete', function(e) {
-        e.preventDefault();
-        window.user.confirm(
-            {
-                message: 'Are you sure you want to delete this image?<br/>This cannot be undone.',
-                icon: 'warning circle icon',
-            },
-            function() {
-                window.jQuery.post(e.target.href, { "_token": "{{ csrf_token() }}"}, function(response){
-                    if (response && response.status == 'success') {
-                        window.jQuery(e.target).closest('.card').remove();
-                    }
-                });
-            },
-            function() {
-                //Handle denial (no action required in this case)
-            }
-        );        
     });
 
     /**

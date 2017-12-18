@@ -66,7 +66,6 @@ class NewsletterController extends ContentController
     {
         $this->viewData['create'] = [
             'pdf' => null,
-            'images' => [],
         ];
 
         return parent::contentCreate();
@@ -99,17 +98,6 @@ class NewsletterController extends ContentController
             $file = File::find($request->pdf_ids[0]);
             $file->saveRelation('parent-id', $newsletter->id);
             $file->onBit(File::APPROVED)->update();
-        }
-
-        //Update the Images
-        if ($request->img_ids) {
-            foreach ($request->img_ids as $index => $img_id) {
-                if ($img_id == 1) continue;
-                $file = File::find($img_id);
-                $file->saveRelation('parent-id', $newsletter->id);
-                $file->onBit(File::APPROVED)->update();
-                $file->saveMetadata('order', $index);
-            }
         }
 
         //ContentEvent required here, otherwise the parent id isn't properly accessible
@@ -149,17 +137,6 @@ class NewsletterController extends ContentController
             $file->onBit(File::APPROVED)->update();
         }
 
-        //Update the Images
-        if ($request->img_ids) {
-            foreach ($request->img_ids as $index => $img_id) {
-                if ($img_id == 1) continue;
-                $file = File::find($img_id);
-                $file->saveRelation('parent-id', $newsletter->id);
-                $file->onBit(File::APPROVED)->update();
-                $file->saveMetadata('order', $index);
-            }
-        }
-
         //ContentEvent required here, otherwise the parent id isn't properly accessible
         event(new ContentEvent($newsletter));
 
@@ -176,13 +153,9 @@ class NewsletterController extends ContentController
         $newsletter = $this->bound($id);
 
         $pdf = $newsletter->pdf->first();
-        $images = $newsletter->images->sortBy(function($image, $key){
-            return $image->getMeta('order');
-        });
 
         $this->viewData['edit'] = [
-            'pdf' => $pdf,
-            'images' => $images,
+            'pdf' => $pdf
         ];
 
         return parent::contentEdit($newsletter);
