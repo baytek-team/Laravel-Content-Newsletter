@@ -71,7 +71,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         $routes = 'routes/api/newsletter.php';
         if(file_exists(base_path($routes))){
-            Route::prefix('api/newsletter')
+            Route::prefix('api/newsletters')
                  ->middleware(['api', 'auth'])
                  ->namespace(Controllers\Api::class)
                  ->group(base_path($routes));
