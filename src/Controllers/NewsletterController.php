@@ -6,6 +6,7 @@ use Baytek\Laravel\Content\Types\Newsletter\Models\Newsletter;
 use Baytek\Laravel\Content\Types\Newsletter\Models\File;
 use Baytek\Laravel\Content\Types\Newsletter\Requests\NewsletterRequest;
 use Baytek\Laravel\Content\Types\Newsletter\Scopes\ApprovedNewsletterScope;
+use Baytek\Laravel\Content\Types\Newsletter\Events\NewsletterPublished;
 
 use Baytek\Laravel\Content\Models\Content;
 use Baytek\Laravel\Content\Controllers\ContentController;
@@ -102,6 +103,9 @@ class NewsletterController extends ContentController
 
         //ContentEvent required here, otherwise the parent id isn't properly accessible
         event(new ContentEvent($newsletter));
+
+        //Publish event
+        event(new NewsletterPublished($newsletter));
 
         return redirect(route('newsletter.edit', $newsletter->id));
     }
