@@ -19,7 +19,16 @@
         }
     },
     "require": {
-        "php": ">=5.6.4"
+        "php": ">=7.0.0",
+        "laravel/framework": "5.5.*",
+        "baytek/laravel-content": "~1.2.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Baytek\\Laravel\\Content\\Types\\Newsletter\\NewsletterContentServiceProvider"
+            ]
+        }
     },
     "post-install-cmd": [
         "php artisan install:newsletter"
